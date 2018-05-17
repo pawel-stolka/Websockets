@@ -6,6 +6,7 @@ let app = require('express')(),
     mongoose = require('mongoose'),
     // Loading socket.io
     io = require('socket.io')(http)
+    // ObjectId = require('mongodb').ObjectID;
 
 let Sport = require('./models/Sport')
 
@@ -49,6 +50,67 @@ app.post('/sport', (req, res) => {
     })
 })
 
+app.delete('/sport/:id', async (req, res) => {
+    let reqId = req.params.id
+    let sport = await Sport.findByIdAndRemove(reqId)
+    .then(note => {
+        if(!note) {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.id
+            });
+        }
+
+        io.emit('delete', reqId)
+        console.log('io.emit delete: ' + reqId);
+
+        res.send({message: "Note deleted successfully!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.id
+            });                
+        }
+        return res.status(500).send({
+            message: "Could not delete note with id " + req.params.id
+        });
+    });
+    // var sportData = req.body;
+    // let objectId = new ObjectId(sportData._id)
+    // console.log('sportData', sportData)
+
+    // let all = await Sport.find({})
+    // let allBut = all.filter((x => x.id == sportData._id))
+    // console.log('allBut', allBut[0])
+
+    // if(allBut)
+    // console.log('tak tak tak', allBut[0])
+    // let reqId = req.params.id
+    // let sport = await Sport.findById(reqId)
+    //     // {
+    //     // _id: sportData._id
+    // // })
+    // console.log(reqId, sport)
+/*
+    if (sport) {
+        console.log('tak', sport)
+    }
+
+    if (!sport) {
+        console.log(false, sport)
+        return res.status(401)
+            .send({
+                message: "This sport doesn't exist."
+            })
+    }
+
+    let removedSport = sport
+*/
+    // return res.status(200)
+    //     .send({
+    //         'removedSport': 'si'//removedSport
+    //     })
+})
+
 // -------------------- ..... ---------------------------------
 
 io.on('connection', (socket) => {
@@ -58,7 +120,7 @@ io.on('connection', (socket) => {
         console.log('user disconnected');
     });
 
-    
+
 
     socket.on('message', (message) => {
         wrappedMsg = 'wrapped: *** ' + message

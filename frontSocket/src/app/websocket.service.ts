@@ -28,6 +28,11 @@ export class WebsocketService {
           console.log("Received sport from Websocket Server")
           observer.next(data);
         })
+
+        this.socket.on('delete', (data) => {
+          console.log("Received deleted sport from Websocket Server")
+          observer.next(data);
+        })
         
         return () => {
           this.socket.disconnect();
@@ -40,7 +45,7 @@ export class WebsocketService {
     let observer = {
         next: (data: Object) => {
             // this.socket.emit('message', JSON.stringify(data));
-            this.socket.emit('message or sport', data);
+            this.socket.emit('message', data);
         },
     };
 

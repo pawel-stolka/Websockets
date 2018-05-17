@@ -1,0 +1,25 @@
+.time {
+    font-size: 12px;
+}
+
+.date {
+    color: royalblue;
+}
+
+.text {
+    /* color: rgb(181, 243, 150); */
+    /* background-color: rgb(231, 56, 217); */
+    font-size: 16px;
+    font-family: 'Verdana';
+}
+
+.onhover:hover {
+    /* visibility: visible; */
+    opacity: 1;
+    cursor: pointer;
+}
+
+.onhover {
+    opacity: 0;
+    /* visibility: hidden; */
+}

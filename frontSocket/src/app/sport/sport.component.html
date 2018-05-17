@@ -3,5 +3,9 @@
 <button (click)="sendMessage()">Send</button>
 
 <div *ngFor="let message of messages">
-  * {{message.name}} - {{message.createdAt}}
+  {{message.id}}.
+  <span class="onhover">{{message._id}}</span>
+  <span class="date">{{message.date}}</span>
+  <span class="time">{{message.time}}</span>
+  <span class="text">{{message.name}} </span>
 </div>

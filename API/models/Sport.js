@@ -1,7 +1,8 @@
 var mongoose = require('mongoose')
+    // ObjectId = require('mongodb').ObjectID
 
 var sportSchema = new mongoose.Schema({
-    // id: String,
+    // _id: String,
     name: String,
     createdAt: {
         type: Date,
