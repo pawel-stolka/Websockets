@@ -1,0 +1,7 @@
+<div id="title">this is {{name}}</div>
+<input [(ngModel)]="message" />
+<button (click)="sendMessage()">Send</button>
+
+<div *ngFor="let message of messages">
+  * {{message.name}} - {{message.createdAt}}
+</div>
