@@ -28,4 +28,10 @@ export class SportService {
     let url = `${this.url}/sports`
     return this.http.get(url)
   }
+
+  delMsg(id) {
+    let url = `${this.url}/sport/${id}`
+    console.log(`to delete: ${url}`)
+    this.http.post(url, null)
+  }
 }

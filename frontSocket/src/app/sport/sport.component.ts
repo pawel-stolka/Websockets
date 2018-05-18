@@ -55,10 +55,11 @@ export class SportComponent implements OnInit {
       time = momentDate.format("hh:mm:ss")
 
     console.log(date, time)
+  }
 
-    // let now = moment(); // add this 2 of 4
-    // console.log('hello world', now.format()); // add this 3 of 4
-    // console.log(now.add(7, 'days').format()); // add this 4of 4
+  del(id) {
+    console.log(`${id} to del`)
+    this.sportService.delMsg(id)
   }
 
   sendMessage() {

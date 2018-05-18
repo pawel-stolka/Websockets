@@ -8,10 +8,11 @@ let app = require('express')(),
     io = require('socket.io')(http)
     // ObjectId = require('mongodb').ObjectID;
 
-let Sport = require('./models/Sport')
+let Sport = require('./models/Sport'),
+    creds = require('./creds')
 
 let port = process.env.PORT || 9005,
-    mongoString = 'mongodb://user:user@ds119080.mlab.com:19080/observables'
+    mongoString = creds.mlab
 
 mongoose.Promise = Promise
 
@@ -50,7 +51,7 @@ app.post('/sport', (req, res) => {
     })
 })
 
-app.delete('/sport/:id', async (req, res) => {
+app.post('/sport/:id', async (req, res) => {
     let reqId = req.params.id
     let sport = await Sport.findByIdAndRemove(reqId)
     .then(note => {
